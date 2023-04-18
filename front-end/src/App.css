@@ -45,6 +45,11 @@
   border-radius: 1em;
   cursor: pointer;
 }
+
+.login{
+  margin-left: 30%;
+  margin-top: 100px;
+}
 /*
 .App-header {
   background-color: #282c34;
