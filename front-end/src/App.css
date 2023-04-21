@@ -72,4 +72,26 @@
   font-size: x-small;
 }
 
+.product-list{
+  text-align: center;
+  margin-top: 50px;
+}
 
+.product-list ul li{
+  display: inline-block;
+  width: 200px;
+  border: 1px solid aquamarine;
+  padding: 5px;
+}
+
+.product-list ul{
+  margin: 0;
+}
+
+.search-product-box{
+  width: 400px;
+  margin: 20px;
+  height: 38px;
+  padding-left: 30px;
+  border: solid 2px aquamarine;
+}

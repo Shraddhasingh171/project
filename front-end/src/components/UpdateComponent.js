@@ -1,35 +1,48 @@
-import React from "react";
+import React, { useEffect } from "react";
+import {useParams,useNavigate} from 'react-router-dom'
 
-const AddProduct = () => {
+const UpdateProduct = () => {
   const [name, setName] = React.useState("");
   const [price, setPrice] = React.useState("");
   const [category, setCategory] = React.useState("");
   const [location, setLocation] = React.useState("");
-  const [error, setError] = React.useState(false);
-  const addProduct = async () => {
-    if (!name || !price || !location || !category) {
-      setError(true);
-      return false;
-    }
+  const params = useParams();
+  const Navigate = useNavigate();
 
-    console.warn(name, price, category, location);
-    const userId = JSON.parse(localStorage.getItem("user"))._id;
-    console.warn(userId);
-    let result = await fetch("http://localhost:4001/add-product", {
-      method: "post",
-      body: JSON.stringify({ name, price, category, location }),
-      headers: {
-        "Content-type": "application/json",
-      },
+  useEffect(()=>{
+    getProductDetails();
+  },[])
+
+  const getProductDetails = async () =>{
+    let result = await fetch(`http://localhost:4001/product/${params.id}`)
+    result = await result.json();
+    
+    setName(result.name)
+    setPrice(result.price)
+    setCategory(result.category)
+    setLocation(result.location)
+  }
+
+
+  const UpdateProduct = async () => {
+    console.warn(name,price,category,location);
+    let result = fetch(`http://localhost:4001/product/${params.id}`,{
+      method:'put',
+      body: JSON.stringify({name,price,category,location}),
+      headers:{
+        'Content-type': 'Application/json'
+    }
     });
     result = await result.json();
-    console.warn(result);
-    alert("Product is added");
+    if(result){
+      Navigate('/');
+    }
+
   };
 
   return (
     <div className="product">
-      <h1>Add Product</h1>
+      <h1>Update Product</h1>
       <input
         onChange={(e) => {
           setName(e.target.value);
@@ -39,8 +52,7 @@ const AddProduct = () => {
         value={name}
         className="inputBox"
       />
-      {error && !name && <span className="invalid-input">Enter invalid name</span>}
-
+      
 
       <input
         onChange={(e) => {
@@ -51,8 +63,7 @@ const AddProduct = () => {
         value={price}
         className="inputBox"
       />
-      {error && !price &&<span className="invalid-input">Enter invalid price</span>}
-
+      
 
       <input
         onChange={(e) => {
@@ -63,7 +74,7 @@ const AddProduct = () => {
         value={category}
         className="inputBox"
       />
-      {error && !category &&<span className="invalid-input">Enter invalid category</span>}
+      
 
 
       <input
@@ -75,14 +86,14 @@ const AddProduct = () => {
         value={location}
         className="inputBox"
       />
-      {error && !location &&<span className="invalid-input">Enter invalid location</span>}
+      
 
 
-      <button onClick={addProduct} className="appButton" type="button">
-        Add Product
+      <button onClick={UpdateProduct} className="appButton" type="button">
+        Update Product
       </button>
     </div>
   );
 };
 
-export default AddProduct;
+export default UpdateProduct;
