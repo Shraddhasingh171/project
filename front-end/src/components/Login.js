@@ -11,7 +11,7 @@ const Login = () => {
     if (auth) {
       Navigate("/");
     }
-  }, []);
+  });
 
   const handleLogin = async () => {
     console.warn("email,password", email, password);

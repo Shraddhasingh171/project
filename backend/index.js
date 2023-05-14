@@ -68,15 +68,15 @@ app.put("product/:id", async (req, res) => {
 
 app.get("/search/:key", async (req, res) => {
   let result = await Product.find({
-    $or: [
+    "$or":[
       {
-        name: { $regex: req.parents.key },
+        name: { $regex: req.params.key },
       },
       {
-        location: { $regex: req.parents.key },
+        location: { $regex: req.params.key },
       },
       {
-        category: { $regex: req.parents.key },
+        category: { $regex: req.params.key },
       },
     ],
   });

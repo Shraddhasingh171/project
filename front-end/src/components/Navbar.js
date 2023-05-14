@@ -11,7 +11,7 @@ const Navbar=()=>{
     return(
         <div>
             <img src="assests/images/logo.png" alt="logo" className='logo' />
-            { auth ? <ul className='nav-ul'>
+            { auth? <ul className='nav-ul'>
                 <li><Link to='/'>Products</Link></li>
                 <li><Link to='/add'>Add Products</Link></li>
                 <li><Link to='/update'>Update Products</Link></li>
